@@ -1,0 +1,15 @@
+.counter-component {
+    & div {
+        display: flex;
+        gap: 12px;
+    }
+}
+
+.btn-counter {
+    width: 40px;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+    display: inline-block;
+    font-weight: bold;
+}
