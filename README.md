@@ -5,7 +5,7 @@ Repositório para códigos e materiais utilizados na disciplina de Desenvolvimen
 
 - [Exemplos trabalhados em aula](Exemplos)
 - [Atividades e desafios](atividades)
-- [Práticas Dirigidas e Projeto Final](praticas)
+- [Práticas Dirigidas e Projeto Final](atividades/)
 
 ## Links Úteis
 
