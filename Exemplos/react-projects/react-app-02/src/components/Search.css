@@ -1,0 +1,15 @@
+.error {
+    font-size: 0.75rem;
+    width: fit-content;
+    margin: 0.25rem 0;
+}
+
+.search-form {
+    & input {
+        margin-bottom: 0.25rem;
+    }
+
+    & button[type="submit"] {
+        margin-top: 1rem;
+    }
+}
