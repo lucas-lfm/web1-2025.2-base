@@ -417,7 +417,7 @@
      - Ainda no elemento input perceba o seguinte trecho: `onChange={(e) => setQuery(e.target.value)}`
        - Aqui, estamos declarando que quando houver uma modificação no valor do campo (`onChange`) uma função será executada (`(e) => setQuery(e.target.value)`) para atualizar o estado `query` com o novo valor digitado pelo usuário (assim, sempre teremos o estado atualizado)
 
-1. Por último (finalmente 😅), valtaremos ao arquivo `App.jsx` para inserir o componente `SearchBar` e implementar a função que executa a busca a partir do que o usuário digitar no campo de busca.
+1. Por último (finalmente 😅), voltaremos ao arquivo `App.jsx` para inserir o componente `SearchBar` e implementar a função que executa a busca a partir do que o usuário digitar no campo de busca.
 
    - O código do componente `App` será modificado como a seguir:
 
