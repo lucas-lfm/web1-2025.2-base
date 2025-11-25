@@ -44,7 +44,7 @@ const App = () => {
       return;
     } 
 
-    setCars(listCars.filter(car => car.model.includes(query)));
+    setCars(listCars.filter( ({ model }) => model.toLowerCase().includes(query.toLowerCase()) ));
   }
   
   return (
