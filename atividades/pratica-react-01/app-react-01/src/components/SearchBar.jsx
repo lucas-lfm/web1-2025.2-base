@@ -3,6 +3,7 @@ import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 
 import "./SearchBar.css";
+import { useEffect } from "react";
 
 const SearchBar = ({ handleSearch }) => {
   const [query, setQuery] = useState("");
@@ -11,6 +12,11 @@ const SearchBar = ({ handleSearch }) => {
     e.preventDefault();
     handleSearch(query);
   };
+
+  // Ao atualizar o estado query, a função de busca é executada
+  useEffect(() => {
+    handleSearch(query);
+  }, [query]);
 
   return (
     <form className='search-container' onSubmit={handleSubmit}>
