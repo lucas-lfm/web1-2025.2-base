@@ -284,6 +284,7 @@ Implementação inicial:
 import { Link } from "react-router-dom";
 import { useCart } from "./../hooks/useCart";
 import { formatPrice } from "./../utils/formatPrice";
+import Button from "./../components/Button";
 import "./Cart.css";
 
 export default function Cart() {
@@ -363,15 +364,15 @@ export default function Cart() {
             </div>
 
             <div className="cart-summary-actions">
-              <button
-                className="btn-primary"
+              <Button
+                className='btn-default'
                 onClick={() => alert("Pedido finalizado (simulação)!")}
               >
                 Finalizar pedido
-              </button>
+              </Button>
 
               { /** Botão para continuar comprando, que leva de volta ao catálogo */ }
-              <Link to="/" className="btn-secondary">
+              <Link to='/' className="btn-default btn-secondary">
                 Continuar comprando
               </Link>
             </div>
@@ -512,7 +513,12 @@ Crie o arquivo `src/pages/Cart.css`:
 
 .cart-summary-actions {
   display: flex;
+  align-items: center;
   gap: 1rem;
+}
+
+.cart-summary-actions a {
+  text-decoration: none;
 }
 
 ```
@@ -638,14 +644,18 @@ export default function Navbar() {
 }
 ```
 
+- Aqui as seguintes alterações foram feitas:
+  - Importamos o hook `useCart` para acessar o estado do carrinho.
+  - Extraímos `totalItems` do contexto para saber quantos itens estão no carrinho.
+  - Adicionamos um badge que exibe `totalItems` ao lado do ícone do carrinho, mas somente se houver itens (condicional).
+  - O link do ícone do carrinho agora leva para a rota `/cart`.
+  - Também alteramos o link do logo para usar o componente `Link` do `react-router-dom`, ao invés de uma tag `<a>`.
+
 No `Navbar.css`, adicione o estilo do badge:
 
 ```css
 .cart-btn {
   position: relative;
-  border: none;
-  background: transparent;
-  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
