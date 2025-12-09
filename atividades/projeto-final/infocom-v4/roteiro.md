@@ -218,6 +218,72 @@ export function useCart() {
 - Ele também verifica se o contexto está disponível, lançando um erro se for usado fora do `CartProvider`.
 - Assim, qualquer componente pode simplesmente chamar `useCart()` para obter acesso ao estado e às funções do carrinho.
 
+## 1.6. Persistir o carrinho no `localStorage`
+
+> 💡 Para melhorar a experiência do usuário, você pode persistir o estado do carrinho no `localStorage`, assim ele não se perde ao recarregar a página.
+> - O `localStorage` é uma API do navegador que permite armazenar dados localmente no computador do usuário.
+
+No arquivo `src/contexts/CartContext.jsx`, vamos:
+
+- Importar também o `useEffect` do React.
+- Criar uma função `initCartState` para carregar o estado inicial do `localStorage`, caso exista.
+- Usar essa função como inicializador do `useReducer`.
+
+```jsx
+import { createContext, useReducer, useEffect } from "react";
+// ...outras importações
+
+const CartContext = createContext();
+
+const CART_STORAGE_KEY = "infocom_cart"; // chave para o localStorage
+
+// Função para inicializar o estado do carrinho a partir do localStorage
+function initCartState() {
+  try {
+    const storedCart = localStorage.getItem(CART_STORAGE_KEY);
+
+    // se não há nada armazenado, retorna o estado inicial vazio
+    if (!storedCart) {
+      return initialState;
+    }
+
+    // tenta converter o JSON de volta para o estado
+    return JSON.parse(storedCart);
+  } catch (error) {
+    console.error("Erro ao carregar o carrinho do localStorage:", error);
+    // em caso de erro, retorna o estado inicial vazio
+    return initialState;
+  }
+}
+```
+
+Ainda dentro do `CartProvider`, ajuste o `useReducer` para usar o inicializador:
+
+```jsx
+// ANTES
+const [state, dispatch] = useReducer(cartReducer, initialState);
+
+// DEPOIS
+const [state, dispatch] = useReducer(cartReducer, initialState, initCartState);
+```
+
+- Quando o `CartProvider` for montado, ele tentará carregar o estado do carrinho do `localStorage` usando a função `initCartState`.
+
+Ainda dentro de `CartProvider`, logo depois da linha do `useReducer`, adicione um `useEffect` que sincroniza o estado com o localStorage:
+
+```jsx
+// sempre que o estado do carrinho mudar, salva no localStorage
+useEffect(() => {
+  try {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(state));
+  } catch (error) {
+    console.error("Erro ao salvar carrinho no localStorage:", error);
+  }
+}, [state]); // state no array de dependências
+
+// ...restante do código do CartProvider permanece igual
+```
+
 ---
 
 ## 2. Envolver a aplicação com o `CartProvider`
@@ -654,6 +720,8 @@ export default function Navbar() {
 No `Navbar.css`, adicione o estilo do badge:
 
 ```css
+/** Código existente */
+
 .cart-btn {
   position: relative;
   display: inline-flex;
@@ -733,6 +801,7 @@ Faça os seguintes testes no navegador:
 | Badge no ícone do carrinho mostrando quantidade total           | ☐  |
 | Total geral do pedido calculado e exibido corretamente          | ☐  |
 | Comportamento de carrinho vazio implementado                    | ☐  |
+| Carrinho é mantido ao recarregar a página (localStorage)          | ☐  |
 
 ---
 
