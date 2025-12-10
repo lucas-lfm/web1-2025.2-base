@@ -298,12 +298,12 @@ import { CartProvider } from "./contexts/CartContext";
 
 // Código existente...
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
     <CartProvider>
       <RouterProvider router={router} />
     </CartProvider>
-  </React.StrictMode>
+  </StrictMode>
 );
 ```
 
